@@ -1,0 +1,45 @@
+<div class="container">
+  <h1 class="title">Statistiques des Pandémies</h1>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label for="country">Sélectionner un pays :</label>
+      <select id="country" [(ngModel)]="tempSelectedCountry">
+        <option *ngFor="let country of countries" [value]="country.id_pays">
+          {{ country.nom_pays }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="pandemic">Sélectionner une pandémie :</label>
+      <select id="pandemic" [(ngModel)]="tempSelectedPandemic">
+        <option *ngFor="let pandemic of pandemies" [value]="pandemic.id_pandemie">
+          {{ pandemic.nom_pandemie }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="startDate">Date de début :</label>
+      <input type="date" id="startDate" [(ngModel)]="tempStartDate" />
+    </div>
+
+    <div class="filter-group">
+      <label for="endDate">Date de fin :</label>
+      <input type="date" id="endDate" [(ngModel)]="tempEndDate" />
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button class="ok-button" (click)="handleOkClick()">OK</button>
+  </div>
+
+  <div class="chart-container">
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      style="width: 100%; height: 400px; display: block;"
+    ></highcharts-chart>
+  </div>
+</div>

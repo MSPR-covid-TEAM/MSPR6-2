@@ -4,7 +4,7 @@
   <div class="filters">
     <div class="filter-group">
       <label for="country">Sélectionner un pays :</label>
-      <select id="country" [(ngModel)]="tempSelectedCountry">
+      <select id="country" [value]="tempSelectedCountry" (change)="onCountryChange($event)">
         <option *ngFor="let country of countries" [value]="country.id_pays">
           {{ country.nom_pays }}
         </option>
@@ -13,7 +13,7 @@
 
     <div class="filter-group">
       <label for="pandemic">Sélectionner une pandémie :</label>
-      <select id="pandemic" [(ngModel)]="tempSelectedPandemic">
+      <select id="pandemic" [value]="tempSelectedPandemic" (change)="onPandemicChange($event)">
         <option *ngFor="let pandemic of pandemies" [value]="pandemic.id_pandemie">
           {{ pandemic.nom_pandemie }}
         </option>
@@ -22,25 +22,50 @@
 
     <div class="filter-group">
       <label for="startDate">Date de début :</label>
-      <input type="date" id="startDate" [(ngModel)]="tempStartDate" />
+      <input type="date" id="startDate" [value]="tempStartDate" (change)="onStartDateChange($event)" />
     </div>
 
     <div class="filter-group">
       <label for="endDate">Date de fin :</label>
-      <input type="date" id="endDate" [(ngModel)]="tempEndDate" />
+      <input type="date" id="endDate" [value]="tempEndDate" (change)="onEndDateChange($event)" />
     </div>
   </div>
 
   <div class="button-container">
     <button class="ok-button" (click)="handleOkClick()">OK</button>
   </div>
+  <!-- 🧾 Résumé des données -->
+  <div class="summary-cards" *ngIf="chartVisible">
+    <div class="summary-card cases">
+      <div class="dot blue"></div>
+      <strong>Cas</strong>
+      <div class="value">{{ totalCases }}</div>
+      <div class="unit">total</div>
+    </div>
 
-  <div class="chart-container">
+    <div class="summary-card deaths">
+      <div class="dot red"></div>
+      <strong>Décès</strong>
+      <div class="value">{{ totalDeaths }}</div>
+      <div class="unit">total</div>
+    </div>
+
+    <div class="summary-card recoveries">
+      <div class="dot green"></div>
+      <strong>Guérisons</strong>
+      <div class="value">{{ totalRecoveries }}</div>
+      <div class="unit">total</div>
+    </div>
+
+  <div class="chart-container" *ngIf="chartVisible">
     <highcharts-chart
       [Highcharts]="Highcharts"
       [options]="chartOptions"
       [update]="updateFlag"
-      style="width: 100%; height: 400px; display: block;"
-    ></highcharts-chart>
+      style="width: 100%; height: 400px; display: block;">
+    </highcharts-chart>
   </div>
+
+
 </div>
+

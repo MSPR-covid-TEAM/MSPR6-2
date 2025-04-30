@@ -39,6 +39,7 @@ export class StatsComponent implements OnInit {
     yAxis: { title: { text: 'Nombre de cas', style: { color: '#666' } } },
     series: []
   };
+  updateFlag = false;
 
   constructor(private http: HttpClient) {}
 
@@ -77,17 +78,28 @@ export class StatsComponent implements OnInit {
         const recoveries = data.map(entry => entry.nouveaux_gueris);
 
         this.chartOptions = {
-          ...this.chartOptions,
-          xAxis: { ...(this.chartOptions.xAxis as any), categories },
+          chart: { type: 'column', backgroundColor: '#f8f9fa' },
+          title: { text: 'Statistiques des Pandémies', style: { color: '#333', fontSize: '20px' } },
+          xAxis: {
+            categories,
+            labels: { style: { color: '#666' } }
+          },
+          yAxis: {
+            title: { text: 'Nombre de cas', style: { color: '#666' } }
+          },
           series: [
             { name: 'Nouveaux cas', data: cases, color: '#007bff', type: 'column' },
             { name: 'Nouveaux décès', data: deaths, color: '#dc3545', type: 'column' },
             { name: 'Nouveaux guéris', data: recoveries, color: '#28a745', type: 'column' }
           ]
         };
+
+        // Déclenche le rafraîchissement
+        this.updateFlag = true;
       },
       error: err => console.error("Erreur chargement des données :", err)
     });
+
   }
 
   handleOkClick() {

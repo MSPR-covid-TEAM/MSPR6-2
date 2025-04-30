@@ -1,0 +1,14 @@
+{
+  "/pays": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/pandemie": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/stats": {
+    "target": "http://localhost:3000",
+    "secure": false
+  }
+}

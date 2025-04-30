@@ -6,6 +6,7 @@ body {
   color: #333;
 }
 
+/* Conteneur principal */
 .container {
   width: 100vw;
   max-width: 100%;
@@ -13,6 +14,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Titre principal */
 .title {
   text-align: center;
   font-size: 26px;
@@ -21,6 +23,7 @@ body {
   margin-bottom: 20px;
 }
 
+/* Section des filtres */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -28,11 +31,12 @@ body {
   justify-content: center;
   margin-bottom: 20px;
   padding: 15px;
-  background: #f8f9fa;
+  background: #f8f9fa; /* Couleur de fond accessible */
   border-radius: 10px;
   width: 100%;
 }
 
+/* Groupe de filtres */
 .filter-group {
   display: flex;
   flex-direction: column;
@@ -41,21 +45,33 @@ body {
   max-width: 300px;
 }
 
+/* Style pour les labels */
 label {
-  font-weight: 600;
+  font-weight: 600; /* Texte en gras pour plus de lisibilité */
   margin-bottom: 6px;
-  color: #555;
+  color: #555555; /* Couleur facilement visible */
 }
 
-select, input {
+/* Champs de sélection et d'entrée */
+select,
+input {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
   font-size: 14px;
-  background: #fff;
+  background: #ffffff;
+  transition: border 0.3s ease;
 }
 
+/* Focus sur les champs */
+select:focus,
+input:focus {
+  border: 2px solid #005fcc; /* Contour visible et accessible */
+  outline: none;
+}
+
+/* Container pour les boutons */
 .button-container {
   width: 100%;
   display: flex;
@@ -63,11 +79,12 @@ select, input {
   margin-top: 20px;
 }
 
+/* Bouton principal */
 .ok-button {
   padding: 12px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  background-color: #007bff; /* Bleu accessible */
+  color: #ffffff;
+  border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
@@ -78,21 +95,42 @@ select, input {
 }
 
 .ok-button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Bleu foncé accessible */
 }
 
+/* Focus sur le bouton */
+.ok-button:focus {
+  border: 2px solid #ffcc00; /* Jaune vif pour un focus visible */
+  outline: none;
+}
+
+/* Conteneur pour les graphiques */
 .chart-container {
   width: 100%;
   max-width: 100%;
   padding: 20px;
-  background: white;
+  background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
   margin-top: 20px;
   margin-right: 20px;
 }
 
+.chart-container:hover {
+  transform: translateY(-5px); /* Léger effet de survol */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Accessibilité pour le clavier */
+.ok-button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid #ffcc00; /* Focus clair pour les technologies d'assistance */
+  outline-offset: 5px;
+}
+
+/* Responsive Design */
 @media screen and (max-width: 768px) {
   .filters {
     flex-direction: column;
@@ -107,4 +145,9 @@ select, input {
   .ok-button {
     max-width: 100%;
   }
+}
+
+/* Mode daltonien (ajouter cette classe à <body> dynamiquement) */
+body.daltonien {
+  filter: grayscale(100%);
 }

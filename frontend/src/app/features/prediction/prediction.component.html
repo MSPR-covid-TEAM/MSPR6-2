@@ -1,4 +1,45 @@
-<div class="prediction-container">
-  <h1>Prédictions</h1>
-  <p>Cette page sera prochainement utilisée pour afficher des modèles prédictifs liés aux pandémies.</p>
-</div>
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <div>
+    <label>Nouveaux cas :</label>
+    <input type="number" [(ngModel)]="form.nouveaux_cas" name="nouveaux_cas" required>
+  </div>
+
+  <div>
+    <label>Nouveaux décès :</label>
+    <input type="number" [(ngModel)]="form.nouveaux_deces" name="nouveaux_deces" required>
+  </div>
+
+  <div>
+    <label>Nouveaux guéris :</label>
+    <input type="number" [(ngModel)]="form.nouveaux_gueris" name="nouveaux_gueris" required>
+  </div>
+
+  <div>
+    <label>Moyenne des cas sur 3 jours :</label>
+    <input type="number" [(ngModel)]="form.moyenne_3j_cas" name="moyenne_3j_cas" required>
+  </div>
+
+  <div>
+    <label>Moyenne des décès sur 3 jours :</label>
+    <input type="number" [(ngModel)]="form.moyenne_3j_deces" name="moyenne_3j_deces" required>
+  </div>
+
+  <div>
+    <label>Moyenne des guéris sur 3 jours :</label>
+    <input type="number" [(ngModel)]="form.moyenne_3j_gueris" name="moyenne_3j_gueris" required>
+  </div>
+
+  <div>
+    <label>Croissance des cas :</label>
+    <input type="number" step="any" [(ngModel)]="form.croissance_cas" name="croissance_cas" required>
+  </div>
+
+  <div>
+    <label>Ratio des cas guéris :</label>
+    <input type="number" step="any" [(ngModel)]="form.ratio_gueris_cas" name="ratio_gueris_cas" required>
+  </div>
+
+  <button type="submit">Prédire</button>
+</form>
+
+<p *ngIf="result">Classe prédite : <strong>{{ result }}</strong></p>

@@ -1,65 +1,64 @@
-# MSPR6-2
+# MSPR6-2 - 
 
---------------------------------------------
+## Pré-requis
 
-# Les installs
+Assurez-vous d'avoir **Node.js** et **npm** installés sur votre machine.
 
-Install backen :
+Il y a un deuxieme read me crée automatiquement par angular ici : MSPR6-2/frontend/README.md
+
+hésitez pas à le consulter si besoin.
+
+### Installer Angular CLI :
+Pour faciliter la gestion de la partie front-end du projet, installez globalement Angular CLI avec la commande suivante :
+
+```bash
+npm install -g @angular/cli
+```
+PS : Nous sommes en Angular 19.2
+---
+
+## Installation
+
+### Installer le backend :
+
 ```bash
 cd backend
 npm install
 npm install dotenv@^16.5.0 express@^5.1.0 mysql2@^3.14.0
 ```
 
-Lancer le projet côté back 
+### Installer le frontend :
+
+Assurez-vous d'avoir Angular CLI installé globalement comme mentionné ci-dessus.
+
+```bash
+cd frontend
+npm install
+```
+
+---
+
+## Lancer le projet
+
+### Lancer le projet côté back-end :
+
 ```bash
 cd backend 
 node app.js
 ```
 
-Lancer le projet côté front 
+### Lancer le projet côté front-end :
+
 ```bash
 cd frontend
 ng serve
 ```
 
+---
 
---------------------------------------------
+## À remplir :
 
-# API CRUD
-
-> `http://localhost:4200` n'est que le lien en local
-
-
-## 1. Create
-
-**CREATE** `http://localhost:4200/stats/create`
-
-
-## 2. Read
-### 2.1. All
-
-**GET** `http://localhost:4200/stats/`
-
-### 2.2. Show
-
-**GET** `http://localhost:4200/stats/{id}`
-## 3. Update
-
-**PUT** `http://localhost:4200/stats/{id}`
-
-**Body JSON** 
-```json
-    "nouveaux_cas": 1,
-    "id_pays":1,
-    "id_pandemie": 1,
-    "date": 1,
-    "nouveaux_cas": 1,
-    "nouveaux_deces": 1,
-    "nouveaux_gueris": 1,
-    "cas_actifs": 1
-```
-> **Attention** : tous les champs ne sont pas obligatoires
-## 4. Delete
-
-**DELETE** `http://localhost:4200/stats/{id}`
+- Ajouter des informations supplémentaires sur la configuration bdd.
+- Préciser les étapes pour déployer l'application en prod ( ayoub ).
+- Mettre nos changements et nos migrations.
+- Mettre a jour le Trello dès que possible.

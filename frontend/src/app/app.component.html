@@ -1,12 +1,21 @@
+
+<img src="assets/oms-logo.png" />
+
 <!-- NAVBAR -->
 <nav class="navbar">
-  <span class="logo">🌍 OMS </span>
-  <div class="nav-links">
-    <a routerLink="/" routerLinkActive="active">Dashboard</a>
+  <span class="logo">🌍 OMS</span>
+  <!-- Menu burger icon -->
+  <div class="burger" (click)="toggleMenu()">
+    &#9776;
+  </div>
+
+  <div class="nav-links" [class.open]="menuOpen">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
     <a routerLink="/stats" routerLinkActive="active">Statistiques</a>
     <a routerLink="/prediction" routerLinkActive="active">Prédictions</a>
     <a routerLink="/users" routerLinkActive="active">Utilisateurs</a>
- </div>
- </nav>
+  </div>
+</nav>
+
 <!-- Contenu des pages -->
 <router-outlet></router-outlet>

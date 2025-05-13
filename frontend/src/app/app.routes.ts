@@ -10,5 +10,16 @@ export const routes: Routes = [
     path: 'stats',
     loadChildren: () => import('./features/stats/stats.routes')
       .then(m => m.default)
+  },
+  {
+    path: 'prediction',
+    loadChildren: () =>
+      import('./features/prediction/prediction.routes').then(m => m.default)
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./features/users/users.routes')
+      .then(m => m.default)
   }
+
 ];

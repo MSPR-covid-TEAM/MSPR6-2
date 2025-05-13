@@ -1,17 +1,21 @@
+/* Navbar */
 .navbar {
-  background-color: #f8f9fa;
-  padding: 12px 24px;
+  background-color: #004080;
+  color: white;
   display: flex;
-  gap: 20px;
-  font-size: 18px;
+  justify-content: space-between;
+  padding: 12px 24px;
+  align-items: center;
 }
-
-a {
-  text-decoration: none;
-  color: #007bff;
-}
-
-a.active {
+.logo {
   font-weight: bold;
-  color: #0056b3;
+  font-size: 20px;
+}
+.nav-links a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+.nav-links a.active {
+  text-decoration: underline;
 }

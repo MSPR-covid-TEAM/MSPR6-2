@@ -31,6 +31,11 @@ npm install dotenv@^16.5.0 express@^5.1.0 mysql2@^3.14.0
 
 Assurez-vous d'avoir Angular CLI installé globalement comme mentionné ci-dessus.
 
+```bash
+cd frontend
+npm install
+```
+
 ---
 
 ## Lancer le projet

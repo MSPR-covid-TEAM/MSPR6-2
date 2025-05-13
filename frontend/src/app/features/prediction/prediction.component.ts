@@ -10,7 +10,7 @@ import { IaService } from '../services/ia.service';
   templateUrl: './prediction.component.html',
 })
 export class PredictionComponent {
-  form = {
+  form: { [key: string]: number } = {
     nouveaux_cas: 0,
     nouveaux_deces: 0,
     nouveaux_gueris: 0,
@@ -20,6 +20,11 @@ export class PredictionComponent {
     croissance_cas: 0,
     ratio_gueris_cas: 0
   };
+
+  updateValue(event: Event, key: string) {
+    const input = event.target as HTMLInputElement;
+    this.form[key] = +input.value;
+  }
 
   result: string | null = null;
 

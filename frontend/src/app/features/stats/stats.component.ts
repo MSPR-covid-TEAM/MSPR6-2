@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { environment } from '../../../environments/environment';
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -54,14 +55,14 @@ export class StatsComponent implements OnInit {
   }
 
   fetchCountries() {
-    this.http.get<any[]>('/pays').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/pays`).subscribe({
       next: data => this.countries = data,
       error: err => console.error('Erreur pays :', err)
     });
   }
 
   fetchPandemics() {
-    this.http.get<any[]>('/pandemie').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/pandemie`).subscribe({
       next: data => this.pandemies = data,
       error: err => console.error('Erreur pandémies :', err)
     });
@@ -75,7 +76,7 @@ export class StatsComponent implements OnInit {
       endDate: this.endDate
     };
 
-    this.http.post<any[]>('/stats', payload).subscribe({
+    this.http.post<any[]>(`${environment.apiUrl}/stats`, payload).subscribe({
       next: data => {
         // 🔁 Grouper les données par mois
         const groupedByMonth: Record<string, { cas: number; deces: number; gueris: number }> = {};

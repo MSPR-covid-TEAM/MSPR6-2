@@ -1,3 +1,18 @@
 <div class="container">
-    <h1 class="title">Utilisateurs</h1>
+  <h1 class="title">Utilisateurs</h1>
+  <button (click)="onAdd()">Ajouter un utilisateur</button>
+  <ag-grid-angular
+    #agGrid
+    style="width: 100%; height: 500px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    (cellValueChanged)="onCellValueChanged($event)"
+    rowSelection="single"
+    [suppressClickEdit]="false"
+  ></ag-grid-angular>
+  <button (click)="onDelete()" style="margin-top:10px;">
+    Supprimer la sélection
+  </button>
 </div>

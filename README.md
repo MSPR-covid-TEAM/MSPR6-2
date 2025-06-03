@@ -34,6 +34,7 @@ Assurez-vous d'avoir Angular CLI installé globalement comme mentionné ci-dessu
 ```bash
 cd frontend
 npm install
+npm install @angular/core@latest
 ```
 
 ---

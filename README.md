@@ -15,6 +15,8 @@ Pour faciliter la gestion de la partie front-end du projet, installez globalemen
 npm install -g @angular/cli
 ```
 PS : Nous sommes en Angular 19.2
+
+
 ---
 
 ## Installation
@@ -61,4 +63,4 @@ ng serve
 - Ajouter des informations supplémentaires sur la configuration bdd.
 - Préciser les étapes pour déployer l'application en prod ( ayoub ).
 - Mettre nos changements et nos migrations.
-- Mettre a jour le Trello dès que possible.
+- Mettre a jour le Trello dès que possible.# test

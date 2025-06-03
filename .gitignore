@@ -2,7 +2,13 @@ frontend/node_modules
 frontend/.vscode
 
 backend/node_modules
+backend/.env
+
+backups/*.sql
 
 ia_pandemie/*.pkl
 ia_pandemie/*.csv
 ia_pandemie/__pycache__
+
+backup.sh
+restore.sh

@@ -1,66 +1,139 @@
-# MSPR6-2 - 
+# 🌍 MSPR - Analyse et Prédiction COVID avec Docker, Node.js & Angular
 
-## Pré-requis
-
-Assurez-vous d'avoir **Node.js** et **npm** installés sur votre machine.
-
-Il y a un deuxieme read me crée automatiquement par angular ici : MSPR6-2/frontend/README.md
-
-hésitez pas à le consulter si besoin.
-
-### Installer Angular CLI :
-Pour faciliter la gestion de la partie front-end du projet, installez globalement Angular CLI avec la commande suivante :
-
-```bash
-npm install -g @angular/cli
-```
-PS : Nous sommes en Angular 19.2
-
+> Projet de fin d'études – Containerisation d'une application Angular + Express.js + MySQL  
+> Inclut API backend, interface frontend, tests automatisés, CI GitHub Actions, sauvegarde BDD
 
 ---
 
-## Installation
+## 📁 Structure du projet
 
-### Installer le backend :
+```
+.
+├── backend/              # API Express (Node.js)
+│   ├── routes/
+│   ├── tests/
+│   ├── Dockerfile
+│   └── .env              # infos BDD (non commit)
+├── frontend/             # App Angular
+│   ├── src/
+│   ├── angular.json
+│   └── Dockerfile
+├── backups/              # Fichiers .sql de sauvegarde
+├── scripts/
+│   ├── backup.sh
+│   └── restore.sh
+├── docs/                 # Documentation technique
+└── .github/workflows/ci.yml # CI GitHub Actions
+```
+
+---
+
+## 🚀 Installation manuelle (dev local)
+
+### 1. Cloner le repo
+
+```bash
+git clone https://github.com/tonutilisateur/tonprojet.git
+cd tonprojet
+```
+
+### 2. Lancer le backend
 
 ```bash
 cd backend
 npm install
-npm install dotenv@^16.5.0 express@^5.1.0 mysql2@^3.14.0
+node app.js
 ```
 
-### Installer le frontend :
+> ✅ L'API tourne sur `http://localhost:3000`
 
-Assurez-vous d'avoir Angular CLI installé globalement comme mentionné ci-dessus.
+### 3. Lancer le frontend
 
 ```bash
 cd frontend
 npm install
-```
-
----
-
-## Lancer le projet
-
-### Lancer le projet côté back-end :
-
-```bash
-cd backend 
-node app.js
-```
-
-### Lancer le projet côté front-end :
-
-```bash
-cd frontend
 ng serve
 ```
 
+> ✅ L'app Angular est sur `http://localhost:4200`
+
 ---
 
-## À remplir :
+## 🐳 Lancer avec Docker (API + frontend)
 
-- Ajouter des informations supplémentaires sur la configuration bdd.
-- Préciser les étapes pour déployer l'application en prod ( ayoub ).
-- Mettre nos changements et nos migrations.
-- Mettre a jour le Trello dès que possible.# test
+### 1. Build les images
+
+```bash
+docker build -t mspr-backend ./backend
+docker build -t mspr-frontend ./frontend
+```
+
+### 2. Lancer les conteneurs
+
+```bash
+docker run -d -p 3000:3000 mspr-backend
+docker run -d -p 4200:80 mspr-frontend
+```
+
+---
+
+## ✅ Tests backend
+
+```bash
+cd backend
+npm test
+```
+
+> 📦 Les tests utilisent `mocha`, `chai` et `supertest`
+
+---
+
+## 🔁 Sauvegarde & restauration de la base
+
+**Base MySQL distante (Alwaysdata)**
+
+### Sauvegarder :
+
+```bash
+./scripts/backup.sh
+```
+
+> Crée un fichier `.sql` dans `/backups/`
+
+### Restaurer :
+
+```bash
+./scripts/restore.sh nom_du_fichier.sql
+```
+
+---
+
+## 🧪 CI/CD - GitHub Actions
+
+- À chaque `push` ou `PR` sur `main` :
+  - `npm install`
+  - `npm test`
+  - `ng build`
+- Voir `.github/workflows/ci.yml`
+
+---
+
+## 📦 Variables d’environnement (.env)
+
+> ⚠️ Ce fichier ne doit **jamais** être versionné (`.gitignore` déjà configuré)
+
+```env
+DB_HOST=mysql-mspr.alwaysdata.net
+DB_PORT=3306
+DB_USER=mspr
+DB_PASSWORD=******
+DB_MSPR_CLEAN=mspr_clean
+DB_MSPR_BDD=mspr_bdd
+```
+
+---
+
+## 💬 Auteurs
+
+- 🎓 Projet réalisé par [Ton Nom]
+- 📅 Année 2025 – dans le cadre du MSPR 6.2

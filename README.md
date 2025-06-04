@@ -61,6 +61,12 @@ ng serve
 
 ## 🐳 Lancer avec Docker (API + frontend)
 
+### pour lancer en local vous devez modifier la variable présente dans le docker-compose.yml 
+
+```bash
+CONFIG: development  # development (en local) ou production ( pour push sur le main )
+```
+
 ### 1. Build les images
 
 ```bash

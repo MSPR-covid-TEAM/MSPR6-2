@@ -11,11 +11,15 @@ services:
       - app-network
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        NODE_ENV: development  # change à 'production' pour un build prod
     ports:
-      - "4200:80"
+      - "4200:4200"  # ou "80:80" si tu utilises la prod/NGINX
     networks:
       - app-network
+
 
 networks:
   app-network:

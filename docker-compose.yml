@@ -13,12 +13,11 @@ services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile
       args:
-        NODE_ENV: development  # change à 'production' pour un build prod
+        CONFIG: development  # ou production
     ports:
-      - "4200:4200"  # ou "80:80" si tu utilises la prod/NGINX
-    networks:
-      - app-network
+      - "4200:80"
 
 
 networks:

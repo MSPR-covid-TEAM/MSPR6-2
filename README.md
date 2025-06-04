@@ -33,8 +33,8 @@
 ### 1. Cloner le repo
 
 ```bash
-git clone https://github.com/tonutilisateur/tonprojet.git
-cd tonprojet
+git clone https://github.com/MSPR-covid-TEAM/MSPR6-2.git
+cd MSPR6-2
 ```
 
 ### 2. Lancer le backend
@@ -64,15 +64,13 @@ ng serve
 ### 1. Build les images
 
 ```bash
-docker build -t mspr-backend ./backend
-docker build -t mspr-frontend ./frontend
+docker-compose up --build
 ```
 
 ### 2. Lancer les conteneurs
 
 ```bash
-docker run -d -p 3000:3000 mspr-backend
-docker run -d -p 4200:80 mspr-frontend
+docker-compose up
 ```
 
 ---
@@ -118,22 +116,8 @@ npm test
 
 ---
 
-## 📦 Variables d’environnement (.env)
-
-> ⚠️ Ce fichier ne doit **jamais** être versionné (`.gitignore` déjà configuré)
-
-```env
-DB_HOST=mysql-mspr.alwaysdata.net
-DB_PORT=3306
-DB_USER=mspr
-DB_PASSWORD=******
-DB_MSPR_CLEAN=mspr_clean
-DB_MSPR_BDD=mspr_bdd
-```
-
 ---
 
 ## 💬 Auteurs
 
-- 🎓 Projet réalisé par [Ton Nom]
-- 📅 Année 2025 – dans le cadre du MSPR 6.2
+- 📅 Année 2025 – dans le cadre du MSPR

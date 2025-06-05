@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'dashboard',
     loadChildren: () => import('./features/dashboard/dashboard.routes')
       .then(m => m.default)
   },
@@ -19,6 +19,16 @@ export const routes: Routes = [
   { path: 'propagation',
     loadChildren: () => import('./features/propagation/propagation.routes')
       .then(m => m.default)
+  },
+  {
+    path: 'connexion',
+    loadChildren: () => import('./features/connexion/connexion.routes')
+      .then(m => m.default)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./features/user/user.routes')
+    .then(m => m.default)
   }
 
 ];

@@ -126,4 +126,12 @@ npm test
 
 ## 💬 Auteurs
 
+Projet réalisé par :
+
+* [BleuzeHugo](https://github.com/BleuzeHugo)
+* [Formidabledu59](https://github.com/Formidabledu59)
+* [R1nt4R0](https://github.com/R1nt4R0)
+* [Vladuyinn](https://github.com/Vladuyinn)
+* [Zagoki](https://github.com/Zagoki)
+  
 - 📅 Année 2025 – dans le cadre du MSPR

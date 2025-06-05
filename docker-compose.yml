@@ -28,7 +28,6 @@ services:
     ports:
       - "8000:8000"
     networks:
->>>>>>>>> Temporary merge branch 2
       - app-network
 
 networks:

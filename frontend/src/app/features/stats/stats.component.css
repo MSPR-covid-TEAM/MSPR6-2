@@ -26,7 +26,8 @@ body {
   margin-bottom: 30px;
 }
 
-/* Bloc de filtres */
+
+/* Section des filtres */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -40,6 +41,14 @@ body {
 }
 
 /* Groupe d’un champ (label + select/input) */
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa; /* Couleur de fond accessible */
+  border-radius: 10px;
+  width: 100%;
+}
+
+/* Groupe de filtres */
 .filter-group {
   display: flex;
   flex-direction: column;
@@ -58,9 +67,21 @@ label {
 
 /* Champs de saisie */
 select, input[type="date"] {
+/* Style pour les labels */
+label {
+  font-weight: 600; /* Texte en gras pour plus de lisibilité */
+  margin-bottom: 6px;
+  color: #555555; /* Couleur facilement visible */
+}
+
+/* Champs de sélection et d'entrée */
+select,
+input {
+
   width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
+
   border: 1px solid #ccc;
   font-size: 15px;
   background-color: #fff;
@@ -86,12 +107,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 /* Bouton */
+  border: 1px solid #bbb;
+  font-size: 14px;
+  background: #ffffff;
+  transition: border 0.3s ease;
+}
+
+/* Focus sur les champs */
+select:focus,
+input:focus {
+  border: 2px solid #005fcc; /* Contour visible et accessible */
+  outline: none;
+}
+
+/* Container pour les boutons */
 .button-container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
+/* Bouton principal */
 .ok-button {
   padding: 12px 24px;
   background-color: #007bff;
@@ -100,6 +136,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: 16px;
   border: none;
   border-radius: 10px;
+=======
+  padding: 12px 20px;
+  background-color: #007bff; /* Bleu accessible */
+  color: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.25s ease, transform 0.2s ease;
   width: 100%;
@@ -119,11 +161,44 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
+  background-color: #0056b3; /* Bleu foncé accessible */
+}
+
+/* Focus sur le bouton */
+.ok-button:focus {
+  border: 2px solid #ffcc00; /* Jaune vif pour un focus visible */
+  outline: none;
+}
+
+/* Conteneur pour les graphiques */
+.chart-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
   margin-top: 20px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+.chart-container:hover {
+  transform: translateY(-5px); /* Léger effet de survol */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Accessibilité pour le clavier */
+.ok-button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid #ffcc00; /* Focus clair pour les technologies d'assistance */
+  outline-offset: 5px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
   .filters {
     flex-direction: column;
     align-items: stretch;
@@ -195,4 +270,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .recoveries .dot {
   background-color: #28a745;
+}
+
+/* Mode daltonien (ajouter cette classe à <body> dynamiquement) */
+body.daltonien {
+  filter: grayscale(100%);
 }

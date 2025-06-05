@@ -1,4 +1,42 @@
 <div class="dashboard-container">
+  <h1 class="dashboard-title">Données du jour par pandémie</h1>
+
+  <div class="card-grid">
+    <!-- COVID-19 -->
+    <div class="stat-card covid">
+      <h2>🦠 COVID-19</h2>
+      <div *ngIf="covidStats; else loadingCovid" class="metrics">
+        <div class="metric"><span class="label">Cas :</span> {{ covidStats.cases }}</div>
+        <div class="metric"><span class="label">Décès :</span> {{ covidStats.deaths }}</div>
+        <div class="metric"><span class="label">Guéris :</span> {{ covidStats.recovered }}</div>
+      </div>
+      <ng-template #loadingCovid>
+        <p class="loading">Chargement...</p>
+      </ng-template>
+    </div>
+
+    <!-- Monkeypox -->
+    <div class="stat-card monkeypox">
+      <h2>🐵 Monkeypox</h2>
+      <div *ngIf="monkeypoxStats; else loadingMpox" class="metrics">
+        <div class="metric"><span class="label">Cas :</span> {{ monkeypoxStats.cases }}</div>
+        <div class="metric"><span class="label">Décès :</span> {{ monkeypoxStats.deaths }}</div>
+        <div class="metric"><span class="label">Guéris :</span> {{ monkeypoxStats.recovered }}</div>
+      </div>
+      <ng-template #loadingMpox>
+        <p class="loading">Chargement...</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <section class="about-section">
+    <h3>🌐 À propos</h3>
+    <p>
+      Ce tableau de bord s'inspire des lignes directrices de l'Organisation mondiale de la santé (OMS).
+      Il permet de suivre en temps réel l'évolution de deux pandémies majeures à l'échelle mondiale.
+    </p>
+  </section>
+=======
   <header class="dashboard-header">
     <h1 aria-label="Bienvenue sur le tableau de bord">Bienvenue sur le Dashboard</h1>
   </header>

@@ -1,7 +1,23 @@
-<!-- Barre de navigation simple -->
-<nav style="padding: 10px; background-color: #f8f9fa;">
-  <a routerLink="/" style="margin-right: 20px;">🏠 Dashboard</a>
-  <a routerLink="/stats">📊 Statistiques</a>
+<img src="oms-logo.png" alt="oms logo" width="20%" height="auto">
+<!-- NAVBAR -->
+<nav class="navbar">
+<div style="display: flex; align-items: center; gap: 8px;">
+  <img src="https://snpl.com/wp-content/uploads/2020/04/logo-oms-2.png"
+       style="height: 40px; width: auto; max-height: 100%; filter: brightness(0) invert(1);"
+       alt="Logo OMS">
+  <span class="logo" style="color: white; font-weight: bold;">OMS</span>
+</div>
+  <!-- Menu burger icon -->
+  <div class="burger" (click)="toggleMenu()">
+    &#9776;d
+  </div>
+
+  <div class="nav-links" [class.open]="menuOpen">
+    <a routerLink="" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/stats" routerLinkActive="active">Statistiques</a>
+    <a routerLink="/propagation" routerLinkActive="active">Propagation</a>
+    <a routerLink="/users" routerLinkActive="active">Utilisateurs</a>
+  </div>
 </nav>
 
 <!-- Contenu des pages -->

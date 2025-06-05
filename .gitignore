@@ -2,3 +2,14 @@ frontend/node_modules
 frontend/.vscode
 
 backend/node_modules
+backend/.env
+docker-compose.yml
+backups/*.sql
+
+ia_pandemie/*.pkl
+ia_pandemie/*.csv
+ia_pandemie/__pycache__
+
+scripts/backup.sh
+scripts/restore.sh
+

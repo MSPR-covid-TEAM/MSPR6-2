@@ -1,3 +1,56 @@
+.dashboard-container {
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #1c1c1c;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+  border-top: 4px solid transparent;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-card h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric {
+  font-size: 16px;
+  color: #333;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+=======
 /* Couleurs accessibles pour tous */
 body {
   margin: 0;
@@ -83,4 +136,39 @@ a:focus, button:focus {
 /* Thème spécial daltonisme (activable via une classe) */
 body.daltonien {
   filter: grayscale(100%); /* Exemple : rend le site monochrome */
+}
+
+.loading {
+  font-style: italic;
+  color: #888;
+}
+
+/* Spécificité couleur */
+.stat-card.covid {
+  border-top-color: #007bff;
+}
+
+.stat-card.monkeypox {
+  border-top-color: #28a745;
+}
+
+/* À propos */
+.about-section {
+  margin-top: 50px;
+  background-color: #f1f9ff;
+  border-left: 6px solid #007bff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.about-section h3 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #004080;
+}
+
+.about-section p {
+  font-size: 15px;
+  color: #444;
 }

@@ -10,5 +10,13 @@
   "/stats": {
     "target": "http://localhost:3000",
     "secure": false
+  },
+  "/predict": {
+    "target": "http://localhost:8000",
+    "secure": false
+  },
+  "/user": {
+    "target": "http://localhost:3000",
+    "secure": false
   }
 }

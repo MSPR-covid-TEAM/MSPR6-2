@@ -9,13 +9,13 @@ import { AllCommunityModule } from 'ag-grid-community';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-user',
   standalone: true,
   imports: [AgGridModule],
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UserComponent implements OnInit {
   @ViewChild('agGrid') agGrid!: AgGridAngular;
   rowData: any[] = [];
   columnDefs: ColDef[] = [
@@ -30,27 +30,27 @@ export class UsersComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.loadUsers();
+    this.loadUser();
   }
 
-  loadUsers() {
-    this.http.get<any[]>('/user').subscribe(users => this.rowData = users);
+  loadUser() {
+    this.http.get<any[]>('/user').subscribe(user => this.rowData = user);
   }
 
   onCellValueChanged(event: any) {
     const user = event.data;
-    this.http.put(`/user/${user.id_user}`, user).subscribe(() => this.loadUsers());
+    this.http.put(`/user/${user.id_user}`, user).subscribe(() => this.loadUser());
   }
 
   onDelete() {
     const selected = this.agGrid.api.getSelectedRows();
     if (selected.length && confirm('Supprimer cet utilisateur ?')) {
-      this.http.delete(`/user/${selected[0].id_user}`).subscribe(() => this.loadUsers());
+      this.http.delete(`/user/${selected[0].id_user}`).subscribe(() => this.loadUser());
     }
   }
 
   onAdd() {
     const newUser = { nom: '', prenom: '', email: '', password: '' };
-    this.http.post('/user', newUser).subscribe(() => this.loadUsers());
+    this.http.post('/user', newUser).subscribe(() => this.loadUser());
   }
 }

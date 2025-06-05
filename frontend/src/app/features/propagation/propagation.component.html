@@ -1,0 +1,67 @@
+<div class="info-section">
+  <p>
+    Cette interface vous permet de simuler la propagation du virus à J+3 selon les données que vous fournissez.
+    Ajustez les curseurs pour refléter votre situation réelle (cas, décès, guérisons...).
+    Le graphique ci-dessous affichera :
+  </p>
+  <ul>
+    <li><strong>À gauche</strong> : le nombre de cas actuellement saisis</li>
+    <li><strong>À droite</strong> : la prédiction de cas dans 3 jours réalisée par l’IA</li>
+  </ul>
+  <p>
+    <a href="#" (click)="openPopup($event)">Plus d'informations</a>
+  </p>
+</div>
+
+<!-- Modal -->
+<div class="modal" *ngIf="showPopup">
+  <div class="modal-content">
+    <span class="close-button" (click)="closePopup()">&times;</span>
+    <h2>Comment fonctionne cette IA ?</h2>
+    <p>
+      Ce système de prédiction utilise un algorithme de <strong>régression Random Forest</strong> entraîné sur des
+      données historiques COVID.
+    </p>
+    <ul>
+      <li>Il prend en compte 8 variables (nouveaux cas, décès, guérisons, moyennes sur 3 jours, croissance...)</li>
+      <li>Les données sont <strong>normalisées</strong> pour homogénéiser les échelles</li>
+      <li>La prédiction représente une <strong>estimation du nombre de cas à J+3</strong></li>
+      <li>Le modèle atteint un <strong>score R² supérieur à 0.91</strong>, garantissant une fiabilité élevée</li>
+    </ul>
+  </div>
+</div>
+
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  @for (key of objectKeys(form); track key) {
+  <div class="slider-container">
+    <label class="slider-label">{{ formatKey(key) }}</label>
+
+    <div class="range-slider">
+      <input type="range" class="range-input" [min]="key.includes('croissance') ? -1 : 0"
+        [max]="key.includes('croissance') ? 1 : key.includes('ratio') ? 1 : 1000"
+        [step]="key.includes('croissance') || key.includes('ratio') ? 0.01 : 1" [value]="form[key]"
+        (input)="updateValue($event, key)" required>
+
+      <output class="range-output">{{ form[key] }}</output>
+      <div class="range-track"></div>
+    </div>
+
+    <div class="range-labels">
+      <span>{{ key.includes('croissance') ? -1 : 0 }}</span>
+      <span>{{ key.includes('croissance') ? 1 : key.includes('ratio') ? 1 : 1000 }}</span>
+    </div>
+  </div>
+  }
+  <button type="submit">Prédire la propagation</button>
+</form>
+
+@if (prediction !== null) {
+<div class="prediction-result">
+  <h2>📈 Cas prédits dans 3 jours</h2>
+  <p>{{ prediction.toFixed(0) }} cas estimés</p>
+</div>
+}
+
+<div class="chart-container">
+  <canvas id="chartCanvas"></canvas>
+</div>

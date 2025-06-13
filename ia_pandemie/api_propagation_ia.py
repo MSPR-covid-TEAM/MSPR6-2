@@ -11,7 +11,10 @@ app = FastAPI(title="API IA - Prédiction de la propagation COVID-19 (J+3)")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],
+    # chemin frontend
+    allow_origins=[
+    "http://localhost:4200",
+    "https://mspr6-2-1.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -26,6 +29,10 @@ class PropagationInput(BaseModel):
     moyenne_3j_gueris: float
     croissance_cas: float
     ratio_gueris_cas: float
+    
+@app.get("/ping")
+def ping():
+    return {"status": "ok"}
 
 @app.post("/predict_propagation")
 def predict_propagation(data: PropagationInput):

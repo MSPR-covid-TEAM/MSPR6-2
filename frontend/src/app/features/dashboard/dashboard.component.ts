@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   covidStats: any = null;
   monkeypoxStats: any = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.fetchStatsForPandemic(1, 'covid');
@@ -52,5 +52,13 @@ export class DashboardComponent implements OnInit {
 
   todayString(): string {
     return new Date().toISOString().slice(0, 10);
+  }
+
+  enableDaltonismMode() {
+    this.renderer.addClass(document.body, 'daltonien');
+  }
+
+  disableDaltonismMode() {
+    this.renderer.removeClass(document.body, 'daltonien');
   }
 }

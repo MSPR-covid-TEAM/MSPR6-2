@@ -15,12 +15,25 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
+<<<<<<< HEAD
         CONFIG: development  # development (en local) ou production(pour push en ligne)
+=======
+        CONFIG: production  # development (en local) ou production (en ligne)
+>>>>>>> main
     ports:
       - "4200:80"
+    networks:
+      - app-network
 
+  ia:
+    build:
+      context: ./ia_pandemie
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
 
 networks:
   app-network:
     driver: bridge
-

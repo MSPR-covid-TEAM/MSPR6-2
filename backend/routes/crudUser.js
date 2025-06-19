@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', auth, async (req, res) => {
   try {
     const connection = await getConnection(process.env.DB_MSPR_CLEAN);
-    const [users] = await connection.query('SELECT id_user, nom, prenom, email FROM user');
+    const [users] = await connection.query('SELECT id_user, nom, prenom, lang, email FROM user');
     await connection.end();
     res.json(users);
   } catch (err) {
@@ -18,13 +18,12 @@ router.get('/', auth, async (req, res) => {
 
 // UPDATE user (modification partielle, hash password si fourni, sécurisé par Bearer)
 router.put('/:id', auth, async (req, res) => {
-  // Vérifie que le token correspond bien à l'utilisateur à modifier
   if (parseInt(req.params.id) !== req.user.id_user) {
     return res.status(403).json({ message: 'Accès interdit : vous ne pouvez modifier que votre propre profil.' });
   }
 
   try {
-    const { nom, prenom, email, password } = req.body;
+    const { nom, prenom, email, password, lang } = req.body;
     const connection = await getConnection(process.env.DB_MSPR_CLEAN);
 
     // Récupérer l'utilisateur existant
@@ -52,6 +51,15 @@ router.put('/:id', auth, async (req, res) => {
     if (email !== undefined) {
       fields.push('email = ?');
       values.push(email);
+    }
+    if (lang !== undefined) {
+      const allowedLangs = ['FRENCH', 'ENGLISH', 'SPANISH', 'GERMAN'];
+      if (!allowedLangs.includes(lang)) {
+        await connection.end();
+        return res.status(400).json({ message: 'Langue non autorisée' });
+      }
+      fields.push('lang = ?');
+      values.push(lang);
     }
     if (password !== undefined && password !== '') {
       const hashedPassword = await bcrypt.hash(password, 10);

@@ -8,6 +8,7 @@ interface User {
   nom: string;
   prenom: string;
   email: string;
+  lang: string;
 }
 
 @Component({
@@ -49,20 +50,24 @@ export class UsersComponent implements OnInit {
   }
 
   saveEdit() {
-    if (!this.editUser.nom || !this.editUser.prenom || !this.editUser.email) {
+    if (!this.editUser.nom || !this.editUser.prenom || !this.editUser.email || !this.editUser.lang) {
       this.feedback = 'Tous les champs sont obligatoires';
       return;
     }
     const body: any = {
       nom: this.editUser.nom,
       prenom: this.editUser.prenom,
-      email: this.editUser.email
+      email: this.editUser.email,
+      lang: this.editUser.lang
     };
     if (this.editUser.password && this.editUser.password.length >= 6) {
       body.password = this.editUser.password;
     }
     this.http.put(`/user/${this.editingId}`, body).subscribe({
       next: () => {
+        if (this.connectedUserId === this.editingId) {
+          localStorage.setItem('user_lang', this.editUser.lang || '');
+        }
         this.feedback = 'Utilisateur mis à jour !';
         this.editingId = null;
         this.editUser = {};

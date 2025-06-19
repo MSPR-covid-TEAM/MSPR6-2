@@ -33,6 +33,7 @@ export class ConnexionComponent implements OnInit {
         next: (res) => {
           localStorage.setItem('jwt_token', res.token);
           localStorage.setItem('user_id', res.userId);
+          localStorage.setItem('user_lang', res.lang);
           this.error = '';
           this.router.navigate(['/dashboard']);
         },

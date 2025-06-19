@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
       { expiresIn: '2h' }
     );
 
-    res.json({ message: 'Connexion réussie', userId: user.id_user, token });
+    res.json({ message: 'Connexion réussie', userId: user.id_user, lang: user.lang, token });
   } catch (error) {
     res.status(500).json({ message: 'Erreur lors de la connexion', error });
   }

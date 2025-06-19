@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 // GET all users
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const connection = await getConnection(process.env.DB_MSPR_CLEAN);
     const [users] = await connection.query('SELECT id_user, nom, prenom, email FROM user');

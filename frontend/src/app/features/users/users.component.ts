@@ -67,6 +67,7 @@ export class UsersComponent implements OnInit {
       next: () => {
         if (this.connectedUserId === this.editingId) {
           localStorage.setItem('user_lang', this.editUser.lang || '');
+          window.location.reload();
         }
         this.feedback = 'Utilisateur mis à jour !';
         this.editingId = null;

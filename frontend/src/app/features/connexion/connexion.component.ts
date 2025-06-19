@@ -35,7 +35,8 @@ export class ConnexionComponent implements OnInit {
           localStorage.setItem('user_id', res.userId);
           localStorage.setItem('user_lang', res.lang);
           this.error = '';
-          this.router.navigate(['/dashboard']);
+          console.log('[LOGIN] user_lang:', res.lang);
+          window.location.href = '/';
         },
         error: () => {
           this.error = 'Email ou mot de passe invalide';

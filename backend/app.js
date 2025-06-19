@@ -15,8 +15,8 @@ app.use('/pandemie', require('./routes/pandemie'));
 app.use('/stats', require('./routes/stats'));
 app.use('/stats', require('./routes/crudStats'));
 app.use('/user', require('./routes/crudUser'));
+app.use('/auth', require('./routes/userAuth'));
 
-// ✅ Export uniquement l'app pour les tests
 module.exports = app;
 
 // ✅ Si exécuté directement : démarrer le serveur

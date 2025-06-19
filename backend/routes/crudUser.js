@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const { getConnection } = require('../db');
+const auth = require('../middleware/auth');
 const router = express.Router();
 
 // GET all users
@@ -15,8 +16,13 @@ router.get('/', async (req, res) => {
   }
 });
 
-// UPDATE user (modification partielle, hash password si fourni)
-router.put('/:id', async (req, res) => {
+// UPDATE user (modification partielle, hash password si fourni, sécurisé par Bearer)
+router.put('/:id', auth, async (req, res) => {
+  // Vérifie que le token correspond bien à l'utilisateur à modifier
+  if (parseInt(req.params.id) !== req.user.id_user) {
+    return res.status(403).json({ message: 'Accès interdit : vous ne pouvez modifier que votre propre profil.' });
+  }
+
   try {
     const { nom, prenom, email, password } = req.body;
     const connection = await getConnection(process.env.DB_MSPR_CLEAN);
@@ -30,7 +36,6 @@ router.put('/:id', async (req, res) => {
       await connection.end();
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
-    const existing = rows[0];
 
     // Préparer les champs à mettre à jour
     let fields = [];

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-connexion',
@@ -17,7 +18,7 @@ export class ConnexionComponent implements OnInit {
   error: string = '';
   user: any = {};
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.http.get('/user/me').subscribe(data => this.user = data);
@@ -25,9 +26,19 @@ export class ConnexionComponent implements OnInit {
 
   onLogin() {
     if (this.validateForm(this.email, this.password)) {
-      // Ici tu peux appeler ton service d'authentification
-      console.log('Logging in with:', { email: this.email, password: this.password });
-      this.error = '';
+      this.http.post<any>('/auth/login', {
+        identifier: this.email,
+        password: this.password
+      }).subscribe({
+        next: (res) => {
+          localStorage.setItem('jwt_token', res.token);
+          this.error = '';
+          this.router.navigate(['/dashboard']);
+        },
+        error: () => {
+          this.error = 'Email ou mot de passe invalide';
+        }
+      });
     } else {
       this.error = 'Email ou mot de passe invalide';
     }

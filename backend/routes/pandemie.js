@@ -5,7 +5,7 @@ const { getConnection } = require('../db');
 router.get('/', async (req, res) => {
   try {
     const connection = await getConnection(process.env.DB_MSPR_CLEAN);
-    const [pandemies] = await connection.query('SELECT DISTINCT id_pandemie, nom_pandemie FROM pandemie');
+    const [pandemies] = await connection.query('SELECT * FROM pandemie');
     await connection.end();
     res.json(pandemies);
   } catch (error) {

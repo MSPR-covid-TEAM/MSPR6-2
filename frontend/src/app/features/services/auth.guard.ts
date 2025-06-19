@@ -1,0 +1,10 @@
+import { Injectable, inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+
+export const authGuard: CanActivateFn = (route, state) => {
+  const token = localStorage.getItem('jwt_token');
+  if (token) return true;
+  const router = inject(Router);
+  router.navigate(['/connexion']);
+  return false;
+};

@@ -15,11 +15,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-<<<<<<< HEAD
         CONFIG: development  # development (en local) ou production(pour push en ligne)
-=======
-        CONFIG: production  # development (en local) ou production (en ligne)
->>>>>>> main
     ports:
       - "4200:80"
     networks:

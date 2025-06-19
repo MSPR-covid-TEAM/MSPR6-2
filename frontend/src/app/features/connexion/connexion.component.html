@@ -1,4 +1,4 @@
-    <div class="container">
+<div class="container">
         <h1>Connexion</h1>
         <form (ngSubmit)="onLogin()" #loginForm="ngForm">
             <div class="form-group">
@@ -12,4 +12,5 @@
             <button type="submit">Se connecter</button>
             <div class="error" *ngIf="error">{{ error }}</div>
         </form>
+        <p>Pas encore de compte ? <a routerLink="/register">Créer un compte</a></p>
     </div>

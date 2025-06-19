@@ -29,10 +29,6 @@ class PropagationInput(BaseModel):
     moyenne_3j_gueris: float
     croissance_cas: float
     ratio_gueris_cas: float
-    
-@app.get("/ping")
-def ping():
-    return {"status": "ok"}
 
 @app.post("/predict_propagation")
 def predict_propagation(data: PropagationInput):

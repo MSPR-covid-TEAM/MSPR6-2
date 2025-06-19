@@ -1,56 +1,92 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ColDef } from 'ag-grid-community';
-import { AgGridAngular } from 'ag-grid-angular';
-import { AgGridModule } from 'ag-grid-angular';
-import { ModuleRegistry } from 'ag-grid-community';
-import { AllCommunityModule } from 'ag-grid-community';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-ModuleRegistry.registerModules([AllCommunityModule]);
+interface User {
+  id_user: number;
+  nom: string;
+  prenom: string;
+  email: string;
+  lang: string;
+}
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [AgGridModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  @ViewChild('agGrid') agGrid!: AgGridAngular;
-  rowData: any[] = [];
-  columnDefs: ColDef[] = [
-    { field: 'id_user', headerName: 'ID', editable: false },
-    { field: 'nom', headerName: 'Nom', editable: true },
-    { field: 'prenom', headerName: 'Prénom', editable: true },
-    { field: 'email', headerName: 'Email', editable: true },
-    { field: 'password', headerName: 'Mot de passe', editable: true }
-  ];
-  defaultColDef = { flex: 1, minWidth: 120, resizable: true };
+  users: User[] = [];
+  editingId: number | null = null;
+  editUser: Partial<User & { password?: string }> = {};
+  feedback = '';
+  connectedUserId: number | null = null;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    const id = localStorage.getItem('user_id');
+    this.connectedUserId = id ? parseInt(id, 10) : null;
     this.loadUsers();
   }
 
   loadUsers() {
-    this.http.get<any[]>('/user').subscribe(users => this.rowData = users);
+    this.http.get<User[]>('/user').subscribe(users => this.users = users);
   }
 
-  onCellValueChanged(event: any) {
-    const user = event.data;
-    this.http.put(`/user/${user.id_user}`, user).subscribe(() => this.loadUsers());
+  startEdit(user: User) {
+    this.editingId = user.id_user;
+    this.editUser = { ...user, password: '' };
+    this.feedback = '';
   }
 
-  onDelete() {
-    const selected = this.agGrid.api.getSelectedRows();
-    if (selected.length && confirm('Supprimer cet utilisateur ?')) {
-      this.http.delete(`/user/${selected[0].id_user}`).subscribe(() => this.loadUsers());
+  cancelEdit() {
+    this.editingId = null;
+    this.editUser = {};
+    this.feedback = '';
+  }
+
+  saveEdit() {
+    if (!this.editUser.nom || !this.editUser.prenom || !this.editUser.email || !this.editUser.lang) {
+      this.feedback = 'Tous les champs sont obligatoires';
+      return;
     }
+    const body: any = {
+      nom: this.editUser.nom,
+      prenom: this.editUser.prenom,
+      email: this.editUser.email,
+      lang: this.editUser.lang
+    };
+    if (this.editUser.password && this.editUser.password.length >= 6) {
+      body.password = this.editUser.password;
+    }
+    this.http.put(`/user/${this.editingId}`, body).subscribe({
+      next: () => {
+        if (this.connectedUserId === this.editingId) {
+          localStorage.setItem('user_lang', this.editUser.lang || '');
+          window.location.reload();
+        }
+        this.feedback = 'Utilisateur mis à jour !';
+        this.editingId = null;
+        this.editUser = {};
+        this.loadUsers();
+      },
+      error: () => this.feedback = 'Erreur lors de la mise à jour'
+    });
   }
 
-  onAdd() {
-    const newUser = { nom: '', prenom: '', email: '', password: '' };
-    this.http.post('/user', newUser).subscribe(() => this.loadUsers());
+  deleteUser(user: User) {
+    if (confirm('Supprimer cet utilisateur ?')) {
+      this.http.delete(`/user/${user.id_user}`).subscribe({
+        next: () => {
+          this.feedback = 'Utilisateur supprimé !';
+          this.loadUsers();
+        },
+        error: () => this.feedback = 'Erreur lors de la suppression'
+      });
+    }
   }
 }

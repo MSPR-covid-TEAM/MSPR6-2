@@ -1,7 +1,22 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
+interface Pandemic {
+  id_pandemie: number;
+  nom_pandemie: string;
+  virus: string;
+  date_debut: string;
+  date_fin: string;
+  description: string;
+}
+
+interface Stats {
+  cases: number;
+  deaths: number;
+  recovered: number;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -11,22 +26,37 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  covidStats: any = null;
-  monkeypoxStats: any = null;
+  pandemics: Pandemic[] = [];
+  statsByPandemic: { [id: number]: Stats } = {};
+  loading = true;
 
-  constructor(private http: HttpClient, private renderer: Renderer2) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchStatsForPandemic(1, 'covid');
-    this.fetchStatsForPandemic(2, 'monkeypox');
+    this.fetchPandemics();
   }
 
-  fetchStatsForPandemic(typeId: number, key: 'covid' | 'monkeypox') {
+  fetchPandemics() {
+    this.http.get<Pandemic[]>('/pandemie').subscribe({
+      next: pandemics => {
+        this.pandemics = pandemics;
+        pandemics.forEach(p => this.fetchStatsForPandemic(p.id_pandemie));
+        this.loading = false;
+      },
+      error: err => {
+        this.loading = false;
+        console.error('Erreur chargement pandémies:', err);
+      }
+    });
+  }
+
+  fetchStatsForPandemic(typeId: number) {
+    const today = new Date().toISOString().slice(0, 10);
     const payload = {
-      countryId: '63',
-      typeId: typeId,
-      startDate: this.todayString(),
-      endDate: this.todayString()
+      countryId: '63', // à adapter si besoin
+      typeId,
+      startDate: today,
+      endDate: today
     };
 
     this.http.post<any[]>('/stats', payload).subscribe({
@@ -41,24 +71,15 @@ export class DashboardComponent implements OnInit {
             },
             { cases: 0, deaths: 0, recovered: 0 }
           );
-
-          if (key === 'covid') this.covidStats = total;
-          else this.monkeypoxStats = total;
+          this.statsByPandemic[typeId] = total;
+        } else {
+          this.statsByPandemic[typeId] = { cases: 0, deaths: 0, recovered: 0 };
         }
       },
-      error: (err) => console.error(`Erreur stats ${key} :`, err)
+      error: (err) => {
+        this.statsByPandemic[typeId] = { cases: 0, deaths: 0, recovered: 0 };
+        console.error(`Erreur stats pandémie ${typeId}:`, err);
+      }
     });
-  }
-
-  todayString(): string {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  enableDaltonismMode() {
-    this.renderer.addClass(document.body, 'daltonien');
-  }
-
-  disableDaltonismMode() {
-    this.renderer.removeClass(document.body, 'daltonien');
   }
 }

@@ -45,6 +45,7 @@ export class AppComponent implements OnInit, DoCheck {
     if (lang === 'ENGLISH') googleLang = 'en';
     if (lang === 'SPANISH') googleLang = 'es';
     if (lang === 'GERMAN') googleLang = 'de';
+    if (lang === 'ITALIAN') googleLang = 'it';
 
     let tries = 0;
     const trySetLang = () => {

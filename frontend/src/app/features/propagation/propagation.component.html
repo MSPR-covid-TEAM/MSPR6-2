@@ -11,14 +11,24 @@
     <li><strong>À droite</strong> : la prédiction de cas dans 3 jours réalisée par l’IA</li>
   </ul>
   <p>
-    <a href="#" (click)="openPopup($event)" aria-controls="popupIA" aria-expanded="false">Plus d'informations</a>
+    <a href="#"
+       (click)="openPopup($event)"
+       aria-controls="popupIA"
+       aria-expanded="false"
+       title="Afficher plus d’informations sur le fonctionnement de l’intelligence artificielle">
+      Plus d'informations sur l'IA
+    </a>
   </p>
 </div>
 
 <!-- Modal  -->
 <div class="modal" *ngIf="showPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" id="popupIA">
   <div class="modal-content">
-    <button class="close-button" (click)="closePopup()" aria-label="Fermer la fenêtre d'information">&times;</button>
+    <button class="close-button"
+            (click)="closePopup()"
+            aria-label="Fermer la fenêtre d'information sur l'intelligence artificielle">
+      &times;
+    </button>
     <h2 id="popupTitle">Comment fonctionne cette IA ?</h2>
     <p>
       Ce système de prédiction utilise un algorithme de <strong>régression Random Forest</strong> entraîné sur des données historiques COVID.
@@ -38,10 +48,12 @@
   </div>
 </div>
 
-<form (ngSubmit)="onSubmit()" #f="ngForm">
+<form (ngSubmit)="onSubmit()" #f="ngForm" aria-label="Formulaire de simulation de propagation">
   @for (key of objectKeys(form); track key) {
     <div class="slider-container">
-      <label [attr.for]="key" class="slider-label">{{ formatKey(key) }}</label>
+      <label [attr.for]="key" class="slider-label">
+        {{ formatKey(key) }}
+      </label>
 
       <div class="range-slider">
         <input type="range"
@@ -54,8 +66,10 @@
                (input)="updateValue($event, key)"
                required />
 
-        <output class="range-output" [attr.for]="key">{{ form[key] }}</output>
-        <div class="range-track"></div>
+        <output class="range-output" [attr.for]="key">
+          {{ form[key] }}
+        </output>
+        <div class="range-track" aria-hidden="true"></div>
       </div>
 
       <div class="range-labels">
@@ -64,7 +78,7 @@
       </div>
     </div>
   }
-  <button type="submit">Prédire la propagation</button>
+  <button type="submit" aria-label="Lancer la prédiction">Prédire la propagation</button>
 </form>
 
 @if (prediction !== null) {
@@ -75,5 +89,5 @@
 }
 
 <div class="chart-container">
-  <canvas id="chartCanvas" aria-label="Graphique de prédiction J+3" role="img"></canvas>
+  <canvas id="chartCanvas" aria-label="Graphique représentant les cas prédits à J+3" role="img"></canvas>
 </div>

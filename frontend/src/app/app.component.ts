@@ -11,7 +11,13 @@ import { RouterModule } from '@angular/router';
 export class AppComponent {
   menuOpen = false;
 
-  toggleMenu(): void {
+  toggleMenu() {
     this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenuOnMobile() {
+    if (window.innerWidth <= 768) {
+      this.menuOpen = false;
+    }
   }
 }

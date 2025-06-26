@@ -6,15 +6,15 @@ export const routes: Routes = [
     loadChildren: () => import('./features/dashboard/dashboard.routes')
       .then(m => m.default)
   },
+    {
+    path: 'dashboard',
+    loadChildren: () => import('./features/dashboard/dashboard.routes')
+      .then(m => m.default)
+  },
   {
     path: 'stats',
     loadChildren: () => import('./features/stats/stats.routes')
       .then(m => m.default)
-  },
-  {
-    path: 'users',
-    loadChildren: () => import('./features/users/users.routes')
-    .then(m => m.default)
   },
   { path: 'propagation',
     loadChildren: () => import('./features/propagation/propagation.routes')

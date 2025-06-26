@@ -1,0 +1,39 @@
+<app-ch></app-ch>
+<div class="container">
+  <h1 class="title">Users</h1>
+  <div class="feedback" *ngIf="feedback">{{ feedback }}</div>
+
+  <div class="users-list">
+    <div class="user-card" *ngFor="let user of users">
+      <ng-container *ngIf="editingId !== user.id_user; else editForm">
+        <div class="user-info">
+          <div><strong>Last name:</strong> {{ user.nom }}</div>
+          <div><strong>First name:</strong> {{ user.prenom }}</div>
+          <div><strong>Email:</strong> {{ user.email }}</div>
+        </div>
+        <div class="actions">
+          <button *ngIf="connectedUserId === user.id_user" (click)="startEdit(user)">Edit</button>
+          <button class="delete-btn" (click)="deleteUser(user)">Delete</button>
+        </div>
+      </ng-container>
+      <ng-template #editForm>
+        <form (ngSubmit)="saveEdit()" class="edit-form">
+          <input type="text" [(ngModel)]="editUser.nom" name="nom" required placeholder="Last name" />
+          <input type="text" [(ngModel)]="editUser.prenom" name="prenom" required placeholder="First name" />
+          <input type="email" [(ngModel)]="editUser.email" name="email" required placeholder="Email" />
+          <select [(ngModel)]="editUser.lang" name="lang" required>
+            <option value="" disabled>Select language</option>
+            <option value="France">France</option>
+            <option value="UnitedState">United States</option>
+            <option value="Suisse">Switzerland</option>
+          </select>
+          <input type="password" [(ngModel)]="editUser.password" name="password" minlength="6" placeholder="New password (optional)" />
+          <div class="edit-actions">
+            <button type="submit">Save</button>
+            <button type="button" (click)="cancelEdit()">Cancel</button>
+          </div>
+        </form>
+      </ng-template>
+    </div>
+  </div>
+</div>

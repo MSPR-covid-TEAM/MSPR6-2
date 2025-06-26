@@ -1,0 +1,70 @@
+<app-us></app-us>
+<div class="container">
+  <h1 class="title">Pandemic Statistics</h1>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label for="country">Select a country:</label>
+      <select id="country" [value]="tempSelectedCountry" (change)="onCountryChange($event)">
+        <option *ngFor="let country of countries" [value]="country.id_pays">
+          {{ country.nom_pays }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="pandemic">Select a pandemic:</label>
+      <select id="pandemic" [value]="tempSelectedPandemic" (change)="onPandemicChange($event)">
+        <option *ngFor="let pandemic of pandemies" [value]="pandemic.id_pandemie">
+          {{ pandemic.nom_pandemie }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="startDate">Start date:</label>
+      <input type="date" id="startDate" [value]="tempStartDate" (change)="onStartDateChange($event)" />
+    </div>
+
+    <div class="filter-group">
+      <label for="endDate">End date:</label>
+      <input type="date" id="endDate" [value]="tempEndDate" (change)="onEndDateChange($event)" />
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button class="ok-button" (click)="handleOkClick()">OK</button>
+  </div>
+
+  <!-- 🧾 Data Summary -->
+  <div class="summary-cards" *ngIf="chartVisible">
+    <div class="summary-card cases">
+      <div class="dot blue"></div>
+      <strong>Cases</strong>
+      <div class="value">{{ totalCases }}</div>
+      <div class="unit">total</div>
+    </div>
+
+    <div class="summary-card deaths">
+      <div class="dot red"></div>
+      <strong>Deaths</strong>
+      <div class="value">{{ totalDeaths }}</div>
+      <div class="unit">total</div>
+    </div>
+
+    <div class="summary-card recoveries">
+      <div class="dot green"></div>
+      <strong>Recoveries</strong>
+      <div class="value">{{ totalRecoveries }}</div>
+      <div class="unit">total</div>
+    </div>
+
+  <div class="chart-container" *ngIf="chartVisible">
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      [update]="updateFlag"
+      style="width: 100%; height: 400px; display: block;">
+    </highcharts-chart>
+  </div>
+</div>

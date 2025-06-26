@@ -1,0 +1,39 @@
+<app-ch></app-ch>
+<app-immersive-reader></app-immersive-reader>
+
+<div class="dashboard-container">
+  <h1 class="dashboard-title">Pandemic Data Overview</h1>
+
+  <div *ngIf="loading" class="loading">Loading data...</div>
+
+  <div class="card-grid" *ngIf="!loading">
+    <div class="stat-card" *ngFor="let p of pandemics">
+      <!-- Pandemic title with emoji -->
+      <div class="pandemic-header">
+        <h2>{{ getEmoji(p.nom_pandemie) }} {{ p.nom_pandemie }}</h2>
+      </div>
+
+      <!-- Main info -->
+      <div class="pandemic-details">
+        <div class="row">
+          <div class="detail"><span class="label">🧬 Virus:</span> {{ p.virus }}</div>
+        </div>
+        <div class="row">
+          <div class="detail"><span class="label">📅 Start:</span> {{ p.date_debut | date }}</div>
+          <div class="detail"><span class="label">📅 End:</span> {{ p.date_fin ? (p.date_fin | date) : 'Ongoing' }}</div>
+        </div>
+        <div class="row description">
+          <div class="detail full"><span class="label">📝 Description:</span> {{ p.description }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="about-section">
+    <h3>🌐 About</h3>
+    <p>
+      This dashboard is inspired by guidelines from the World Health Organization (WHO).
+      It enables real-time monitoring of major pandemics across the globe.
+    </p>
+  </section>
+</div>

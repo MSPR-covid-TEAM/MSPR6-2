@@ -1,0 +1,26 @@
+<!-- Google Translate Element -->
+<div id="google_translate_element" aria-label="Zone de sélection de la langue" style="position:fixed;top:10px;right:10px;z-index:9999;background:#fff;padding:4px 8px;border-radius:6px;"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <img src="https://flagcdn.com/160x120/ch.png"
+      style="height: 40px; width: auto; max-height: 100%;" alt="DrapeauCh">
+    <span class="logo" style="color: white; font-weight: bold;">OMS</span>
+  </div>
+  <!-- Menu burger icon -->
+  <div class="burger" (click)="toggleMenu()">
+    &#9776;d
+  </div>
+
+  <div class="nav-links" [class.open]="menuOpen">
+    <a [routerLink]="['/', ClusterName]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+    <a [routerLink]="['/', ClusterName, 'stats']" routerLinkActive="active">Statistics</a>
+    <a [routerLink]="['/', ClusterName, 'propagation']" routerLinkActive="active">Spread</a>
+    <a [routerLink]="['/', ClusterName, 'users']" routerLinkActive="active">Users</a>
+    <a href="#" (click)="logout()">Logout</a>
+  </div>
+</nav>
+
+<!-- Contenu des pages -->
+<router-outlet></router-outlet>

@@ -35,8 +35,10 @@ export class ConnexionComponent implements OnInit {
           localStorage.setItem('user_id', res.userId);
           localStorage.setItem('user_lang', res.lang);
           this.error = '';
-          console.log('[LOGIN] user_lang:', res.lang);
-          window.location.href = '/';
+          let cluster = 'fr-cluster';
+          if (res.lang === 'UnitedState') cluster = 'us-cluster';
+          if (res.lang === 'Suisse') cluster = 'ch-cluster';
+          window.location.href = `/${cluster}`;
         },
         error: () => {
           this.error = 'Email ou mot de passe invalide';

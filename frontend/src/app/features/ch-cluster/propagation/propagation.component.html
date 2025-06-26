@@ -1,0 +1,94 @@
+<!-- Accessible & Daltonism-friendly HTML -->
+<app-ch></app-ch>
+<div class="info-section" id="infoSection" aria-labelledby="infoHeading">
+  <h2 id="infoHeading">General Information</h2>
+  <p>
+    This interface allows you to simulate the virus spread at D+3 based on the data you provide.
+    Adjust the sliders to reflect your real situation (cases, deaths, recoveries...).
+    The chart below will display:
+  </p>
+  <ul>
+    <li><strong>On the left</strong>: the number of cases currently entered</li>
+    <li><strong>On the right</strong>: the AI-predicted number of cases in 3 days</li>
+  </ul>
+  <p>
+    <a href="#"
+       (click)="openPopup($event)"
+       aria-controls="popupIA"
+       aria-expanded="false"
+       title="Show more information about how the AI works">
+      More information about the AI
+    </a>
+  </p>
+</div>
+
+<!-- Modal  -->
+<div class="modal" *ngIf="showPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" id="popupIA">
+  <div class="modal-content">
+    <button class="close-button"
+            (click)="closePopup()"
+            aria-label="Close the information window about the AI">
+      &times;
+    </button>
+    <h2 id="popupTitle">How does this AI work?</h2>
+    <p>
+      This prediction system uses a <strong>Random Forest regression</strong> algorithm trained on historical COVID data.
+    </p>
+    <ul>
+      <li>It takes into account 8 variables (new cases, deaths, recoveries, 3-day averages, growth...)</li>
+      <li>The data is <strong>normalized</strong> to standardize the scales</li>
+      <li>The prediction represents an <strong>estimate of the number of cases in 3 days</strong></li>
+      <li>The model achieves an <strong>R² score above 0.91</strong>, ensuring high reliability</li>
+    </ul>
+    <p>The model was evaluated on a test set and shows the following performance:</p>
+    <ul>
+      <li><strong>R²:</strong> 0.917 (91.7% of the variance explained)</li>
+      <li><strong>MAE:</strong> 1594.14</li>
+      <li><strong>RMSE:</strong> 1736.43</li>
+    </ul>
+  </div>
+</div>
+
+<form (ngSubmit)="onSubmit()" #f="ngForm" aria-label="Virus spread simulation form">
+  @for (key of objectKeys(form); track key) {
+    <div class="slider-container">
+      <label [attr.for]="key" class="slider-label">
+        {{ formatKey(key) }}
+      </label>
+
+      <div class="range-slider">
+        <input type="range"
+               [id]="key"
+               [attr.aria-label]="'Value of ' + formatKey(key)"
+               [min]="key.includes('croissance') ? -1 : 0"
+               [max]="key.includes('croissance') ? 1 : key.includes('ratio') ? 1 : 1000"
+               [step]="key.includes('croissance') || key.includes('ratio') ? 0.01 : 1"
+               [value]="form[key]"
+               (input)="updateValue($event, key)"
+               required />
+
+        <output class="range-output" [attr.for]="key">
+          {{ form[key] }}
+        </output>
+        <div class="range-track" aria-hidden="true"></div>
+      </div>
+
+      <div class="range-labels">
+        <span>{{ key.includes('croissance') ? -1 : 0 }}</span>
+        <span>{{ key.includes('croissance') ? 1 : key.includes('ratio') ? 1 : 1000 }}</span>
+      </div>
+    </div>
+  }
+  <button type="submit" aria-label="Launch prediction">Predict the spread</button>
+</form>
+
+@if (prediction !== null) {
+  <div class="prediction-result" aria-live="polite" id="resultBlock">
+    <h2>📈 Predicted Cases in 3 Days</h2>
+    <p>{{ prediction.toFixed(0) }} estimated cases</p>
+  </div>
+}
+
+<div class="chart-container">
+  <canvas id="chartCanvas" aria-label="Chart showing predicted cases at D+3" role="img"></canvas>
+</div>

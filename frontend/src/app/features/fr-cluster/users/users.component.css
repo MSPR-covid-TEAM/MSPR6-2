@@ -1,0 +1,82 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #003366;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+.feedback {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.user-card {
+  background: #f9fbfd;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.user-info {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  font-size: 1.1rem;
+}
+.actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #0056b3;
+}
+.delete-btn {
+  background: #dc3545;
+}
+.delete-btn:hover {
+  background: #a71d2a;
+}
+.edit-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.edit-form input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
+}
+.edit-actions {
+  display: flex;
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .user-info { flex-direction: column; gap: 8px; }
+  .edit-form { flex-direction: column; align-items: stretch; }
+}

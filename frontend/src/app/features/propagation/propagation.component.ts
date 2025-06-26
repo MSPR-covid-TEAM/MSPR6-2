@@ -20,7 +20,7 @@ export class PropagationComponent {
     moyenne_3j_cas: 0,
     moyenne_3j_deces: 0,
     moyenne_3j_gueris: 0,
-    croissance_cas: 0,
+    croissance_cas: -1,
     ratio_gueris_cas: 0
   };
 

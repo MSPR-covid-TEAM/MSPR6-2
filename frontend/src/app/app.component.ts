@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, DoCheck {
   menuOpen = false;
   private lastLang: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit, DoCheck {
       window.location.href = "/us-cluster";
       return;
     }
-    if (lang === "Suisse") {
+    if (lang && lang.startsWith("Suisse")) {
       window.location.href = "/ch-cluster";
       return;
     }

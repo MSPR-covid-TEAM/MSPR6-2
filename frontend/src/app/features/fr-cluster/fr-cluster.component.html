@@ -1,0 +1,23 @@
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <img src="https://flagcdn.com/160x120/fr.png"
+      style="height: 40px; width: auto; max-height: 100%;" alt="DrapeauFr">
+    <span class="logo" style="color: white; font-weight: bold;">OMS</span>
+  </div>
+  <!-- Menu burger icon -->
+  <div class="burger" (click)="toggleMenu()">
+    &#9776;d
+  </div>
+
+  <div class="nav-links" [class.open]="menuOpen">
+    <a [routerLink]="['/', ClusterName]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Tableau de bord</a>
+    <a [routerLink]="['/', ClusterName, 'stats']" routerLinkActive="active">Statistiques</a>
+    <a [routerLink]="['/', ClusterName, 'propagation']" routerLinkActive="active">Propagation</a>
+    <a [routerLink]="['/', ClusterName, 'users']" routerLinkActive="active">Utilisateurs</a>
+    <a href="#" (click)="logout()">Déconnexion</a>
+  </div>
+</nav>
+
+<!-- Contenu des pages -->
+<router-outlet></router-outlet>

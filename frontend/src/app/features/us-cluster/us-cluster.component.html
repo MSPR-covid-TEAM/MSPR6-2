@@ -1,0 +1,22 @@
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <img src="https://flagcdn.com/160x120/us.png" style="height: 40px; width: auto; max-height: 100%;" alt="US Flag">
+    <span class="logo" style="color: white; font-weight: bold;">WHO</span>
+  </div>
+  <!-- Menu burger icon -->
+  <div class="burger" (click)="toggleMenu()">
+    &#9776;
+  </div>
+
+  <div class="nav-links" [class.open]="menuOpen">
+    <a [routerLink]="['/', ClusterName]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+    <a [routerLink]="['/', ClusterName, 'stats']" routerLinkActive="active">Statistics</a>
+    <a [routerLink]="['/', ClusterName, 'propagation']" routerLinkActive="active">Spread</a>
+    <a [routerLink]="['/', ClusterName, 'users']" routerLinkActive="active">Users</a>
+    <a href="#" (click)="logout()">Logout</a>
+  </div>
+</nav>
+
+<!-- Page content -->
+<router-outlet></router-outlet>

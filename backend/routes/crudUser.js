@@ -53,7 +53,7 @@ router.put('/:id', auth, async (req, res) => {
       values.push(email);
     }
     if (lang !== undefined) {
-      const allowedLangs = ['France', 'UnitedState', 'Suisse'];
+      const allowedLangs = ['France', 'UnitedState', 'Suisse(en)', 'Suisse(de)', 'Suisse(fr)', 'Suisse(it)'];
       if (!allowedLangs.includes(lang)) {
         await connection.end();
         return res.status(400).json({ message: 'Langue non autorisée' });

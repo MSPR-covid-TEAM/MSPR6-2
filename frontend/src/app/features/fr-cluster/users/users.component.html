@@ -22,12 +22,16 @@
           <input type="text" [(ngModel)]="editUser.prenom" name="prenom" required placeholder="Prénom" />
           <input type="email" [(ngModel)]="editUser.email" name="email" required placeholder="Email" />
           <select [(ngModel)]="editUser.lang" name="lang" required>
-            <option value="" disabled>Sélectionner la langue</option>
+            <option value="" disabled>Select language</option>
             <option value="France">France</option>
-            <option value="UnitedState">United State</option>
-            <option value="Suisse">Suisse</option>
+            <option value="UnitedState">United States</option>
+            <option value="Suisse(fr)">Suisse (Français)</option>
+            <option value="Suisse(en)">Suisse (Anglais)</option>
+            <option value="Suisse(de)">Suisse (Allemand)</option>
+            <option value="Suisse(it)">Suisse (Italien)</option>
           </select>
-          <input type="password" [(ngModel)]="editUser.password" name="password" minlength="6" placeholder="Nouveau mot de passe (optionnel)" />
+          <input type="password" [(ngModel)]="editUser.password" name="password" minlength="6"
+            placeholder="Nouveau mot de passe (optionnel)" />
           <div class="edit-actions">
             <button type="submit">Enregistrer</button>
             <button type="button" (click)="cancelEdit()">Annuler</button>

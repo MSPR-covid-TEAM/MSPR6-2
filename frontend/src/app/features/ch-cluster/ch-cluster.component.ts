@@ -50,11 +50,17 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   applyGoogleTranslateLang() {
-    const lang = localStorage.getItem("user_lang") || "France";
-    let googleLang = "fr";
-    if (lang === "Suisse1") googleLang = "en";
-    if (lang === "Suisse") googleLang = "de";
-    if (lang === "Suisse2") googleLang = "it";
+    const lang = localStorage.getItem("user_lang") || "Suisse(fr)";
+    if (!lang.startsWith("Suisse")) {
+      console.log("[GOOGLE TRANSLATE] Pas de changement, langue non suisse :", lang);
+      return;
+    }
+
+    let googleLang = "fr"; // défaut
+    if (lang === "Suisse(en)") googleLang = "en";
+    else if (lang === "Suisse(de)") googleLang = "de";
+    else if (lang === "Suisse(it)") googleLang = "it";
+    else if (lang === "Suisse(fr)") googleLang = "fr";
 
     let tries = 0;
     const trySetLang = () => {
@@ -62,18 +68,16 @@ export class AppComponent implements OnInit, DoCheck {
         ".goog-te-combo",
       ) as HTMLSelectElement;
       if (select) {
+        console.log("[GOOGLE TRANSLATE] Tentative de changement :", googleLang);
         if (select.value !== googleLang) {
           select.value = googleLang;
-          // Simule un vrai événement utilisateur
           const event = new Event("change", { bubbles: true });
           select.dispatchEvent(event);
-          // Simule un clic pour certains navigateurs
           select.blur();
           select.focus();
-          console.log(
-            "[GOOGLE TRANSLATE] Langue changée via Google Translate:",
-            googleLang,
-          );
+          console.log("[GOOGLE TRANSLATE] Langue changée via Google Translate:", googleLang);
+        } else {
+          console.log("[GOOGLE TRANSLATE] Langue déjà sélectionnée :", googleLang);
         }
       } else if (tries < 20) {
         tries++;

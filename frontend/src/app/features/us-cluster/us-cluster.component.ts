@@ -28,19 +28,19 @@ export class AppComponent implements DoCheck {
     window.location.href = '/connexion';
   }
 
-ngDoCheck() {
-  const lang = localStorage.getItem('user_lang') || 'UnitedState';
-  if (lang !== this.lastLang) {
-    // Redirection selon la langue
-    if (lang === 'France') {
-      window.location.href = '/fr-cluster';
-      return;
+  ngDoCheck() {
+    const lang = localStorage.getItem('user_lang') || 'UnitedState';
+    if (lang !== this.lastLang) {
+      // Redirection selon la langue
+      if (lang === 'France') {
+        window.location.href = '/fr-cluster';
+        return;
+      }
+      if (lang && lang.startsWith("Suisse")) {
+        window.location.href = '/ch-cluster';
+        return;
+      }
+      this.lastLang = lang;
     }
-    if (lang === 'Suisse'){
-      window.location.href = '/ch-cluster';
-      return;
-    }
-    this.lastLang = lang;
   }
-}
 }

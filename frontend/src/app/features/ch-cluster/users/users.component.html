@@ -21,15 +21,6 @@
           <input type="text" [(ngModel)]="editUser.nom" name="nom" required placeholder="Last name" />
           <input type="text" [(ngModel)]="editUser.prenom" name="prenom" required placeholder="First name" />
           <input type="email" [(ngModel)]="editUser.email" name="email" required placeholder="Email" />
-          <select [(ngModel)]="editUser.lang" name="lang" required>
-            <option value="" disabled>Select language</option>
-            <option value="France">France</option>
-            <option value="UnitedState">United States</option>
-            <option value="Suisse(fr)">Switzerland (FR)</option>
-            <option value="Suisse(en)">Switzerland (EN)</option>
-            <option value="Suisse(de)">Switzerland (DE)</option>
-            <option value="Suisse(it)">Switzerland (IT)</option>
-          </select>
           <input type="password" [(ngModel)]="editUser.password" name="password" minlength="6"
             placeholder="New password (optional)" />
           <div class="edit-actions">

@@ -6,15 +6,20 @@ const router = express.Router();
 
 // POST /register
 router.post('/register', async (req, res) => {
-  const { nom, prenom, email, password } = req.body;
+  const { nom, prenom, email, password, lang } = req.body;
+  const allowedLangs = ['France', 'UnitedState', 'Suisse(en)', 'Suisse(de)', 'Suisse(fr)', 'Suisse(it)'];
+
+  if (!allowedLangs.includes(lang)) {
+    return res.status(400).json({ message: 'Langue non autorisée' });
+  }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const connection = await getConnection(process.env.DB_MSPR_CLEAN);
 
     const [result] = await connection.query(
-      'INSERT INTO user (nom, prenom, email, password) VALUES (?, ?, ?, ?)',
-      [nom, prenom, email, hashedPassword]
+      'INSERT INTO user (nom, prenom, email, password, lang) VALUES (?, ?, ?, ?, ?)',
+      [nom, prenom, email, hashedPassword, lang]
     );
 
     await connection.end();

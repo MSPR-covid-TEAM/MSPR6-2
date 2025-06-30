@@ -15,11 +15,6 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () => import('./users/users.routes')
     .then(m => m.default)
-  },
-  {
-    path: 'propagation',
-    loadChildren: () => import('./propagation/propagation.routes')
-      .then(m => m.default)
   }
 ];
 

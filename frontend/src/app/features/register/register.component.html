@@ -17,6 +17,18 @@
       <label for="password">Mot de passe :</label>
       <input id="password" name="password" [(ngModel)]="password" required type="password" />
     </div>
+    <div class="form-group">
+      <label for="lang">Langue / Cluster :</label>
+      <select id="lang" name="lang" [(ngModel)]="lang" required>
+        <option value="" disabled selected>Choisir...</option>
+        <option value="France">France</option>
+        <option value="UnitedState">États-Unis</option>
+        <option value="Suisse(fr)">Suisse (Français)</option>
+        <option value="Suisse(en)">Suisse (Anglais)</option>
+        <option value="Suisse(de)">Suisse (Allemand)</option>
+        <option value="Suisse(it)">Suisse (Italien)</option>
+      </select>
+    </div>
     <button type="submit">S'inscrire</button>
     <div class="error" *ngIf="error">{{ error }}</div>
   </form>

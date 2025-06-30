@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, DoCheck {
   menuOpen = false;
   private lastLang: string | null = null;
 
-    ClusterName = "ch-cluster";
+  ClusterName = "ch-cluster";
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;

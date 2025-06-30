@@ -16,7 +16,6 @@
   <div class="nav-links" [class.open]="menuOpen">
     <a [routerLink]="['/', ClusterName]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
     <a [routerLink]="['/', ClusterName, 'stats']" routerLinkActive="active">Statistics</a>
-    <a [routerLink]="['/', ClusterName, 'propagation']" routerLinkActive="active">Spread</a>
     <a [routerLink]="['/', ClusterName, 'users']" routerLinkActive="active">Users</a>
     <a href="#" (click)="logout()">Logout</a>
   </div>

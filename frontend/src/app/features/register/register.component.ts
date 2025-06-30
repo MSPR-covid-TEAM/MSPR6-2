@@ -16,17 +16,19 @@ export class RegisterComponent {
   prenom = '';
   email = '';
   password = '';
+  lang = '';
   error = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onRegister() {
-    if (this.nom && this.prenom && this.email && this.password.length >= 6) {
+    if (this.nom && this.prenom && this.email && this.password.length >= 6 && this.lang) {
       this.http.post<any>('/auth/register', {
         nom: this.nom,
         prenom: this.prenom,
         email: this.email,
-        password: this.password
+        password: this.password,
+        lang: this.lang
       }).subscribe({
         next: () => {
           this.error = '';

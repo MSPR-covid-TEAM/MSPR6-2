@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ImmersiveReaderComponent } from './reader/immersive-reader.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, ImmersiveReaderComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

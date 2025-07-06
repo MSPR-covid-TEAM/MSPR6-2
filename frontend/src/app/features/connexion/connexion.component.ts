@@ -1,9 +1,9 @@
-// filepath: /[project-name]/[project-name]/app/features/connexion/login.ts
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-connexion',
@@ -21,12 +21,12 @@ export class ConnexionComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    this.http.get('/user/me').subscribe(data => this.user = data);
+    this.http.get(`${environment.apiUrl}/user/me`).subscribe(data => this.user = data);
   }
 
   onLogin() {
     if (this.validateForm(this.email, this.password)) {
-      this.http.post<any>('/auth/login', {
+      this.http.post<any>(`${environment.apiUrl}/auth/login`, {
         identifier: this.email,
         password: this.password
       }).subscribe({
@@ -48,7 +48,7 @@ export class ConnexionComponent implements OnInit {
   }
 
   onSave() {
-    this.http.put('/user/me', this.user).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/user/me`, this.user).subscribe(() => {
       alert('Profil mis à jour !');
     });
   }

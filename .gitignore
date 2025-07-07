@@ -13,3 +13,4 @@ ia_pandemie/__pycache__
 scripts/backup.sh
 scripts/restore.sh
 
+*.env

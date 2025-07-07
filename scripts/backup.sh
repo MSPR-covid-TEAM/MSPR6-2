@@ -1,5 +1,7 @@
 #!/bin/bash
 
+BACKUP_DIR="../backups"
+
 # Charger les variables d'environnement
 set -a
 [ -f ../backend/.env ] && . ../backend/.env
